@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {Container, Header, Body, Title, Content} from 'native-base';
 
 import Home from './Home';
 import Loader from '../../components/Loader';
+import Header from '../../components/Header';
 
 export default class HomeContainer extends Component {
   constructor(props) {
@@ -40,16 +40,10 @@ export default class HomeContainer extends Component {
       return <Loader />;
     }
     return (
-      <Container>
-        <Header>
-          <Body>
-            <Title>Photo Album</Title>
-          </Body>
-        </Header>
-        <Content>
-          <Home data={this.state.dataSource} />
-        </Content>
-      </Container>
+      <View>
+        <Header title="Photo Album" />
+        <Home data={this.state.dataSource} />
+      </View>
     );
   }
 }

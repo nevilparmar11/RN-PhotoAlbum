@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import {View, FlatList} from 'react-native';
 import PhotoItem from '../../components/PhotoItem';
 
 export default class Home extends Component {
@@ -28,7 +28,7 @@ export default class Home extends Component {
   };
   render() {
     return (
-      <View style={styles.imagesContainer}>
+      <View>
         <FlatList
           horizontal={false}
           numColumns={3}
@@ -42,7 +42,3 @@ export default class Home extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  imagesContainer: {},
-});
