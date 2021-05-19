@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {View} from 'react-native';
+import {Container, Header, Body, Title, Content} from 'native-base';
+
 import Home from './Home';
 import Loader from '../../components/Loader';
 
@@ -36,6 +39,17 @@ export default class HomeContainer extends Component {
     if (this.state.isLoading) {
       return <Loader />;
     }
-    return <Home data={this.state.dataSource} />;
+    return (
+      <Container>
+        <Header>
+          <Body>
+            <Title>Photo Album</Title>
+          </Body>
+        </Header>
+        <Content>
+          <Home data={this.state.dataSource} />
+        </Content>
+      </Container>
+    );
   }
 }

@@ -1,15 +1,6 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-} from 'react-native';
+import {View, FlatList, StyleSheet} from 'react-native';
 import PhotoItem from '../../components/PhotoItem';
-
-const {height, width} = Dimensions.get('window');
 
 export default class Home extends Component {
   constructor(props) {
@@ -37,59 +28,21 @@ export default class Home extends Component {
   };
   render() {
     return (
-      <View>
-        <Text style={styles.heading}>Scroll</Text>
+      <View style={styles.imagesContainer}>
         <FlatList
-          style={styles.list}
-          horizontal={true}
+          horizontal={false}
+          numColumns={3}
           data={this.state.dataSource}
           initialNumToRender={20}
           maxToRenderPerBatch={20}
-          updateCellsBatchingPeriod={30}
-          getItemLayout={(data, index) => ({
-            length: 200,
-            offset: 200 * index,
-            index,
-          })}
-          renderItem={({item}) => (
-            <PhotoItem url={item.url} title={item.title} />
-          )}
+          renderItem={({item}) => <PhotoItem url={item.url} />}
           keyExtractor={(item, index) => index.toString()}
         />
-        <TouchableOpacity style={styles.button} onPress={this.reorder}>
-          <Text style={styles.buttonText}>Reorder the list</Text>
-        </TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  heading: {
-    marginTop: 0.3 * height,
-    marginBottom: 20,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  list: {
-    height: 200,
-  },
-  image: {
-    width: 200,
-    height: 200,
-  },
-  button: {
-    backgroundColor: '#79b6cf',
-    width: 0.5 * width,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
-    marginTop: 20,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  buttonText: {
-    color: '#fff',
-  },
+  imagesContainer: {},
 });
