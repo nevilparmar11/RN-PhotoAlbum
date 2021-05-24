@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '7%',
     flexDirection: 'row',
-    backgroundColor: 'darkblue',
+    backgroundColor: 'deepskyblue',
     alignItems: 'center',
     justifyContent: 'center',
   },
