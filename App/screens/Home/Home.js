@@ -5,38 +5,26 @@ import PhotoItem from '../../components/PhotoItem';
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      dataSource: props.data,
-    };
   }
-  reorder = () => {
-    const currentArr = this.state.dataSource;
-    this.randomizeArray(currentArr, currentArr.length);
-    this.setState({
-      dataSource: currentArr,
-    });
+
+  renderItem = ({item}) => {
+    return <PhotoItem url={item.url} />;
   };
-  randomizeArray = (array, n) => {
-    if (n <= 1) {
-      return;
-    }
-    const index = Math.floor(Math.random() * n);
-    const tmp = array[n - 1];
-    array[n - 1] = array[index];
-    array[index] = tmp;
-    this.randomizeArray(array, n - 1);
+
+  keyExtractor = (item, index) => {
+    return index.toString();
   };
+
   render() {
     return (
       <View>
         <FlatList
-          horizontal={false}
           numColumns={3}
-          data={this.state.dataSource}
+          data={this.props.data}
           initialNumToRender={20}
           maxToRenderPerBatch={20}
-          renderItem={({item}) => <PhotoItem url={item.url} />}
-          keyExtractor={(item, index) => index.toString()}
+          renderItem={this.renderItem}
+          keyExtractor={this.keyExtractor}
         />
       </View>
     );
