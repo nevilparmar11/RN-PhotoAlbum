@@ -14,7 +14,6 @@ class HomeContainer extends Component {
 
   render() {
     if (this.props.isLoading) {
-      console.log('Inside isLoading');
       return <Loader />;
     }
     return (
