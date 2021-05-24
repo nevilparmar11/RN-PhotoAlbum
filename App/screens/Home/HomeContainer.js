@@ -1,49 +1,43 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, Text, Button} from 'react-native';
+import {connect} from 'react-redux';
 
 import Home from './Home';
 import Loader from '../../components/Loader';
 import Header from '../../components/Header';
+import {loadPhotos} from '../../actions/photoAction';
 
-export default class HomeContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      dataSource: [],
-    };
-  }
-
+class HomeContainer extends Component {
   componentDidMount() {
-    return fetch('https://jsonplaceholder.typicode.com/photos')
-      .then(response => response.json())
-      .then(necessaryData =>
-        necessaryData.map(item => ({
-          id: item.id,
-          title: item.title,
-          url: item.url,
-        })),
-      )
-      .then(responseJson => {
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson,
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    this.props.loadPhotos();
   }
 
   render() {
-    if (this.state.isLoading) {
+    if (this.props.isLoading) {
+      console.log('Inside isLoading');
       return <Loader />;
     }
     return (
       <View>
         <Header title="Photo Album" />
-        <Home data={this.state.dataSource} />
+        <Home data={this.props.photos} />
       </View>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    photos: state.photos,
+    isLoading: state.isLoading,
+    error: state.error,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    loadPhotos: () => dispatch(loadPhotos()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
